@@ -1,5 +1,8 @@
 (function($, window, documentElement, height, width) {
     
+    var defaultString = 'F11',
+        defaultAlt = 'F11';
+
     // browser detection code courtesy of quirksmode, http://www.quirksmode.org/js/detect.html
     // slightly simplified, as well as minor changes for readability purposes
 
@@ -90,8 +93,16 @@
         ,$window = $(window)
     ;
     
-    var thisKeys = keys[BrowserDetect.browser][BrowserDetect.OS];
-    var shortcut = { shortcut: thisKeys.string, longform: thisKeys.alt };
+    var thisKeys;
+    
+    if (keys[BrowserDetect.browser]) {
+        thisKeys = keys[BrowserDetect.browser][BrowserDetect.OS];
+    }
+
+    var shortcut = { 
+        shortcut: thisKeys ? thisKeys.string : defaultString, 
+        longform: thisKeys ? thisKeys.alt : defaultAlt
+    };
 
     $window
         .data('fullscreen-state', isFullScreen())
